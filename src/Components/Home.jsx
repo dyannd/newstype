@@ -415,6 +415,7 @@ function Home(props) {
                         borderColor: inputFocus? currentTheme.main : currentTheme.correct
                     }}>
                 </input>
+                <p style={{color: currentTheme.correct}}>version 0.1</p>
             </div>
 
         </section>

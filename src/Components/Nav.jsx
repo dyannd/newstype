@@ -17,7 +17,7 @@ function NavBar(props) {
     return (
         <section id="NavBar" className="nav-bar">
             <div className="logo">
-                <h1 style={{ color: theme.correct }}><span style={{ color: theme.main }}>news</span>type</h1>
+                <h1 style={{ color: theme.correct }}><span style={{ color: theme.main }}>wanna</span>type?</h1>
             </div>
             <div className="nav-elements-holder">
                 <NavElement
