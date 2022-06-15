@@ -1,9 +1,26 @@
 @import "./font/fontTTHoves.css";
+
+html {
+  height: 100vh;
+  align-items: center;
+  overflow: hidden;
+}
+
+#Home {
+  position: absolute;
+  height: 40vh;
+  top: 50%;
+  left: 50%;
+  margin: -20vh 0 0 -40vw;
+}
+
 :root {
-  --chinese-black:#141414;
-  --chinese-white:#E1E1E1;
-  --white:#FFFFFF;
-  --gray:#7f7f7f;
+  --chinese-black: #141414;
+  --chinese-white: #E1E1E1;
+  --white: #FFFFFF;
+  --gray: #7f7f7f;
+  --big-text: 2rem;
+  --super-big-text: 2.5rem;
 }
 
 @font-face {
@@ -33,94 +50,105 @@ font-face {
 
 /*Body*/
 body {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   font-family: "BRCobane";
-  background-color: var(--chinese-black);
-  color:var(--gray);
   overflow-x: hidden;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: var(--super-big-text);
 }
+
 
 
 /*
   Navigation bar
 */
 .nav-bar {
-  height:6rem;
+  height: 6rem;
   display: flex;
   align-content: space-between;
-  width:100vw;
+  width: 100vw;
   align-items: center;
 }
 
 .logo {
   margin-left: 2rem;
 }
+
 .logo>h1 {
   font-weight: bold;
-  color:var(--white);
-  margin:auto;
+  color: var(--white);
+  margin: auto;
 }
 
 .logo>h1>span {
   font-weight: lighter;
   letter-spacing: -2px;
   margin-right: 2px;
-  color:var(--chinese-white);
+  color: var(--chinese-white);
 }
 
 /** Navbar elements**/
 .nav-elements-holder {
-  flex:1;
-  display:flex;
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: flex-end;
   margin-right: 2rem;
 }
 
 .nav-element {
-  width:3rem;
-  cursor:pointer;
-  display:flex;
+  width: 3rem;
+  cursor: pointer;
+  display: flex;
   justify-content: center;
 }
 
 .nav-element:hover {
-  color:var(--chinese-white);
-  transition:all 0.5s;
+  color: var(--chinese-white);
+  transition: all 0.5s;
 }
 
 .selected {
-  color:var(--chinese-white);
+  color: var(--chinese-white);
 }
+
+/************SETTINGS ELEMENTS *****************/
 
 /** Home-text component **/
-#home {
-  display: flex;
-  align-items: center;
-}
 
-.text-controls, .stat-indicator-tracker {
-  width: 70vw;
+.text-controls,
+.stat-indicator-tracker {
+  width: 80vw;
+  height: 2rem;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/** React select**/
+.css-b62m3t-container {
+  margin-left: 1rem;
+}
+
+
 .text-controls {
-  cursor:pointer;
+  cursor: pointer;
+}
+
+.icon {
+  transform: scale(1.5);
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .stat-indicator-tracker {
   justify-content: start;
 }
 
-.stat-indicator-tracker > span {
+.stat-indicator-tracker>span {
   flex-basis: 50%;
 }
 
@@ -128,58 +156,92 @@ h1 {
  set height to 9vw to accompany for 3 x 3vw lines
 **/
 .main-text-display {
-  width:80vw;
-  height:4.5rem;
+  width: 80vw;
+  height: 9rem;
   white-space: initial;
-  word-wrap: break-word; 
-  line-height:2rem;
-  font-size: 1.4rem;
+  word-wrap: break-word;
+  line-height: 2rem;
+  font-size: var(--big-text);
   margin: 5% auto;
   justify-content: left;
   align-items: center;
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   overflow: hidden;
 }
 
 
 .word {
-  margin:0 0.25rem;
-  height:1.4rem;
+  margin: 0 0.45rem;
+  height: 3rem;
+  transition: all 0.1s ease-in-out;
 }
+
 
 /** current-word is the custom theme 
 for current word being displayed
 **/
 .current-word {
-  text-decoration: underline;
-}
-
-.wrong-word {
-  color:red;
-}
-
-.correct-word {
-  color:var(--white);
+  transform: scale(1.08);
+  transition: all 0.08s ease-in-out;
+  text-decoration: underline 4px;
 }
 
 .main-text-input {
-  width:80vw;
+  width: fit-content;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
 }
 
-.main-text-input > input {
-  margin:0 auto;
-  width: fit-content !important;
-  display: flex;
-  text-align: center;
-  font-size: 1.4rem;
-  border: none;
-  border-bottom: 2px solid white;
-  font-family: "BRCobane";
-  background-color: transparent;
-  color:var(--white);
+.main-text-input > i {
+  margin-left: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
+#user-input {
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  display: flex;
+  text-align: center;
+  font-size: var(--big-text);
+  font-family: "BRCobane";
+  background-color: transparent;
+  border-radius: 0 10px 10px 10px ;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+}
+
+/******* RESULT SECION *******/
+.result {
+  margin:0 auto;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  transform: translateX(1.5rem);
+}
+
+.result-subdata {
+  margin: 0 2rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-subdata>h1 {
+  width: fit-content;
+  margin: -5rem;
+  transform: scale(1.3);
+}
+
+.result-subdata>i {
+  margin-right: 0.7rem;
+  margin-top: -0.3rem;
+}
