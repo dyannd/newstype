@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Result from './Result.jsx';
 import words from './words.txt';
 import Select from 'react-select';
+import Loading from './Loading.jsx';
 
 function Home(props) {
     const timerOption = props.option;
@@ -26,6 +27,7 @@ function Home(props) {
     const [correctChar, settCorrectChar] = useState(0);
     const [hoverReset, setHoverReset] = useState(false);
     const [inputFocus, setInputFocus] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     //styling for React-Select
     const selectStyles = {
@@ -214,6 +216,7 @@ function Home(props) {
     //handle getting text 
     useEffect(() => {
         if (gettingText) {
+            setIsLoading(true);
             getText();
         }
     }, [gettingText])
@@ -249,6 +252,9 @@ function Home(props) {
 
                 //done getting text
                 setGettingText(false);
+
+                //updates loading animation to false
+                setIsLoading(false);
             })
         //shift focus to user input
         document.getElementById("user-input").focus();
@@ -256,12 +262,23 @@ function Home(props) {
 
     //handle spacebar when receive input 
     function handleKeyPress(event) {
+        let keyCode = event.keyCode;
+
         //set typing to true at first type
         if (isTyping === false) {
-            setIsTyping(true);
+            //if they are special characters
+            if (!((keyCode >= 48 && keyCode <= 57)
+                || (keyCode >= 65 && keyCode <= 90)
+                || (keyCode >= 97 && keyCode <= 122))
+                && keyCode != 8 && keyCode != 32) {
+                event.preventDefault();
+            }
+            else {
+                setIsTyping(true);
+            }
         }
-        //if is spacebar
-        if (event.keyCode === 32) {
+        //if is spacebar or enter
+        if (keyCode === 32 || keyCode == 13) {
             //verify word if correct
             verifyWord(currentInput);
             //update current word
@@ -272,14 +289,24 @@ function Home(props) {
             setTotalWordsTyped(prev => prev + 1);
 
         }
+
+        //if they are special characters, do nothing
+        if (!((keyCode >= 48 && keyCode <= 57)
+            || (keyCode >= 65 && keyCode <= 90)
+            || (keyCode >= 97 && keyCode <= 122))
+            && keyCode != 8 && keyCode != 32) {
+            event.preventDefault();
+        }
+
     }
 
     //updates the text in the input box by changing 
     //input's value attribute 
     function handleChange(evt) {
         setCurrentInput(evt.target.value);
+    };
 
-    }
+
 
     //verify the word input from the form with the current word 
     function verifyWord(word) {
@@ -351,16 +378,15 @@ function Home(props) {
     return (
         <section id="Home">
             <div className="text-controls"
-                onClick={reset}
                 style={{
                     color: !hoverReset ? currentTheme.correct : currentTheme.main,
                 }}
-
             >
 
                 <i className="fa-solid fa-repeat icon"
                     onMouseEnter={() => setHoverReset(true)}
                     onMouseLeave={() => setHoverReset(false)}
+                    onClick={reset}
                 ></i>
 
             </div>
@@ -369,27 +395,42 @@ function Home(props) {
                     <div className="stat-indicator-tracker" >
 
                         <h1>{timer}</h1>
-                        <Select
-                            value={currentTheme}
-                            onChange={setCurrentTheme}
-                            options={themeOptions}
-                            styles={selectStyles}
-                        />
+                        {
+                            !isTyping ?
+                                <div style={{
+                                    marginLeft: "1rem",
+                                    transition: "all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)"
+                                }}>
+                                    <Select
+                                        value={currentTheme}
+                                        onChange={setCurrentTheme}
+                                        options={themeOptions}
+                                        styles={selectStyles}
+                                    />
+                                </div>
+                                : null
+                        }
+
                     </div>
 
                     <div className="main-text-display">
-                        {para.map((word, idx) => {
-                            return (
+                        {isLoading ?
+                            <Loading theme={currentTheme} /> :
+                            para.map((word, idx) => {
+                                return (
 
-                                <div className={idx === currentWordIdx ?
-                                    "word current-word" : "word"}
-                                    key={idx}
-                                    id={"word-" + idx}>
-                                    {word}
-                                </div>
-                            )
-                        })}
+                                    <div className={idx === currentWordIdx ?
+                                        "word current-word" : "word"}
+                                        key={idx}
+                                        id={"word-" + idx}>
+                                        {word}
+                                    </div>
+                                )
+                            })
+
+                        }
                     </div>
+
                 </>
                 :
                 <Result
@@ -412,10 +453,10 @@ function Home(props) {
                     style={{
                         color: currentTheme.main,
                         border: "3px solid " + currentTheme.main,
-                        borderColor: inputFocus? currentTheme.main : currentTheme.correct
+                        borderColor: inputFocus ? currentTheme.main : currentTheme.correct
                     }}>
                 </input>
-                <p style={{color: currentTheme.correct}}>version 0.1</p>
+                <p style={{ color: currentTheme.correct }}>version 0.2</p>
             </div>
 
         </section>
