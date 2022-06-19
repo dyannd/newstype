@@ -16,9 +16,9 @@ html {
   --chinese-white: #E1E1E1;
   --white: #FFFFFF;
   --gray: #7f7f7f;
-  --normal-text: 1.7vw;
-  --big-text: 2.1vw;
-  --super-big-text: 2.5vw;
+  --normal-text: 1.4rem;
+  --big-text: 2.2rem;
+  --super-big-text: 2.5rem;
   --nav-height: 15vh;
 }
 
