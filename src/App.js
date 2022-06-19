@@ -24,6 +24,12 @@ function App() {
   const lightBrown = "#a38e7a";
   const smokyBlue = "#90b2ca";
 
+  //darkblue
+  const darkBlue = "#242F41";
+  const darkGrey = "#8399A5";
+  const mildWhite = "#E7E6E8";
+  const gold = "#FEC155";
+
   //themes
   var defaultTheme = {
     name: "BnW",
@@ -52,8 +58,17 @@ function App() {
     wrong: smokyBlue,
   }
 
+  var kip = {
+    name: "kip",
+    label: "kip",
+    correct: darkGrey,
+    main: mildWhite,
+    background: darkBlue,
+    wrong: gold
+  }
+
   //theme array, containing all available theme for users
-  const themeList = [defaultTheme, paTheme, beige];
+  const themeList = [defaultTheme, paTheme, beige, kip];
 
   //current theme, default as BnW
   const [currentTheme, setCurrentTheme] = useState(defaultTheme);
