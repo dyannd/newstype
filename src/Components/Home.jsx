@@ -235,7 +235,7 @@ function Home(props) {
             .then(r => r.text())
             .then(text => {
                 //push the words to an array and save to textList state
-                var wordArray = text.split(/\r\n/);
+                var wordArray = text.split(/\r\n|\n/);
                 var paragraph = []
                 //generate 1000 words paragraph from the array above
                 for (let i = 0; i < 1000; i++) {
