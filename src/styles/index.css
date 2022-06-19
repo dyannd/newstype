@@ -17,8 +17,8 @@ html {
   --white: #FFFFFF;
   --gray: #7f7f7f;
   --normal-text: 1.7vw;
-  --big-text: 2.3vw;
-  --super-big-text: 2.7vw;
+  --big-text: 2.1vw;
+  --super-big-text: 2.5vw;
   --nav-height: 15vh;
 }
 
@@ -100,7 +100,7 @@ h3 {
 }
 
 .nav-element {
-  width: 3rem;
+  margin: 0 0.6vw;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -172,6 +172,8 @@ h3 {
   height: 3rem;
   transition: all 0.1s ease-in-out;
   font-size: var(--big-text);
+  display: flex;
+  align-items: center;
 }
 
 

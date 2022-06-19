@@ -53,6 +53,7 @@ function Home(props) {
             color: currentTheme.wrong,
             border: "none",
             boxShadow: 0,
+            fontSize: "1.4vw"
         }),
 
         //value inside the control box
